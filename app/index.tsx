@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { StyleSheet, View, Text, TextInput, Button, Image } from "react-native";
 
 export default function Index() {
-  
+  const textInputRef = useRef<TextInput>(null);
   const [enteredGoalText, setEnteredGoalText] = useState("");
   const [courseGoals, setCourseGoals] = useState<string[]>([]);
 
@@ -15,12 +15,16 @@ export default function Index() {
       ...currentCourseGoals,
       enteredGoalText,
     ]);
+
+    console.log(textInputRef);
+    textInputRef.current?.clear();
   };
 
   return (
     <View style={ styles.appContainer }>
       <View style={ styles.inputContainer }>
         <TextInput
+          ref={textInputRef}
           placeholder="Your Course Goal"
           style={ styles.textInput }
           onChangeText={ goalInputHandler }
