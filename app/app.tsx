@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { StyleSheet, View, Text, TextInput, Button, Image } from "react-native";
 
-export default function Index() {
+export default function App() {
   const textInputRef = useRef<TextInput>(null);
   const [enteredGoalText, setEnteredGoalText] = useState("");
   const [courseGoals, setCourseGoals] = useState<string[]>([]);
