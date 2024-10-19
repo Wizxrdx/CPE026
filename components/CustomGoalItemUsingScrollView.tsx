@@ -2,7 +2,7 @@ import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
 
 function CustomGoalItemUsingScrollView(props: any) {
     return (
-        <ScrollView style={ props.style }>
+        <ScrollView>
           {props.goalsData.map((text: string, key: number) => (
               <View style={ styles.goalsComponent } key={ key }>
                 <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/1657/1657671.png" }} style={{ width: 20, height: 20, marginRight: 5 }}/>
