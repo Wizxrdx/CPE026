@@ -17,7 +17,7 @@ export default function App() {
     );
   };
 
-  function generateGoals(length = 50) {
+  function generateGoals(length = 500) {
     return Array.from({ length: length}, (_, index) => ({
       text: `Goal ${index + 1}`,
       key: Math.random().toString(),
@@ -27,14 +27,20 @@ export default function App() {
   return (
     <View style={ styles.appContainer }>
       <GoalInput onAddGoal={addGoalHandler}/>
-      {/* <Text style={ styles.goalsHeader }>List of Goals</Text>
-      <CustomGoalItemUsingScrollView style={ styles.goalsContainer } goalsData={ generateGoals(500).map(goal => goal.text) }/> */}
-      <FlatList style={ styles.goalsContainer } data={ generateGoals(500) } renderItem={(item) => {
+      <Text style={ styles.goalsHeader }>List of Goals</Text>
+
+      {/* <View style={ styles.goalsContainer }>
+        <CustomGoalItemUsingScrollView goalsData={ generateGoals().map(goal => goal.text) }/>
+      </View> */}
+      {/* <View style={ styles.goalsContainer }>
+      <FlatList style={ styles.goalsContainer } data={ generateGoals() } renderItem={(item) => {
         return <CustomGoalItemUsingFlatList text={item.item.text}/>
       }}/>
-      {/* <FlatList style={ styles.goalsContainer } data={ courseGoals } renderItem={(item) => {
+      </View> */}
+      <FlatList data={ courseGoals } renderItem={(item) => {
         return <GoalItem text={item.item.text}/>
-      }}/> */}
+      }}/>
+
     </View>
   );
 }
@@ -47,8 +53,9 @@ const styles = StyleSheet.create({
   },
   
   goalsContainer: {
-    flex: 5,
+    // flex: 5,
     paddingTop: 10,
+    height: 300
   },
 
   goalsHeader: {
@@ -56,9 +63,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     backgroundColor: '#4CAF50',
     padding: 16,
-  },
-
-  goalListContainer: {
-    flex: 1,
   }
 });
