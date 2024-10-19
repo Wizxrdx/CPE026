@@ -1,8 +1,11 @@
-import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, Image, StyleSheet, ScrollView, ImageComponent } from 'react-native';
 
 function CustomGoalItemUsingFlatList(props: any) {
     return <View style={ styles.goalsComponent }>
-        <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/1657/1657671.png" }} style={{ width: 20, height: 20, marginRight: 5 }}/>
+        <Image source={{
+            uri: "https://cdn-icons-png.flaticon.com/512/1657/1657671.png" }}
+            style={ styles.imageComponent
+        }/>
         <Text>{props.text}</Text>
     </View>
 };
@@ -16,7 +19,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#4CAF50',
         elevation: 5,
         flexDirection: "row",
-      },
+    },
+    imageComponent: {
+        width: 20,
+        height: 20,
+        marginRight: 5
+    }
 });
 
 export default CustomGoalItemUsingFlatList;
