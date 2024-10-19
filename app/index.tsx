@@ -2,6 +2,8 @@ import { useState, useRef } from "react";
 import { StyleSheet, FlatList, View, Text, TextInput, Button, Image } from "react-native";
 import GoalItem from "@/components/GoalItem";
 import GoalInput from "@/components/GoalInput";
+import CustomGoalItemUsingScrollView from "@/components/CustomGoalItemUsingScrollView";
+import CustomGoalItemUsingFlatList from "@/components/CustomGoalItemUsingFlatList";
 
 export default function App() {
   const [courseGoals, setCourseGoals] = useState<{ text: string; key: string; }[]>([]);
@@ -15,13 +17,24 @@ export default function App() {
     );
   };
 
+  function generateGoals(length = 50) {
+    return Array.from({ length: length}, (_, index) => ({
+      text: `Goal ${index + 1}`,
+      key: Math.random().toString(),
+    }));
+  }
+
   return (
     <View style={ styles.appContainer }>
       <GoalInput onAddGoal={addGoalHandler}/>
-      <Text style={ styles.goalsHeader }>List of Goals</Text>
-      <FlatList style={ styles.goalsContainer } data={ courseGoals } renderItem={(item) => {
-        return <GoalItem text={item.item.text}/>
+      {/* <Text style={ styles.goalsHeader }>List of Goals</Text>
+      <CustomGoalItemUsingScrollView style={ styles.goalsContainer } goalsData={ generateGoals(500).map(goal => goal.text) }/> */}
+      <FlatList style={ styles.goalsContainer } data={ generateGoals(500) } renderItem={(item) => {
+        return <CustomGoalItemUsingFlatList text={item.item.text}/>
       }}/>
+      {/* <FlatList style={ styles.goalsContainer } data={ courseGoals } renderItem={(item) => {
+        return <GoalItem text={item.item.text}/>
+      }}/> */}
     </View>
   );
 }
