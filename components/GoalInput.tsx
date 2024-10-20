@@ -1,5 +1,7 @@
 import { useRef, useState } from 'react';
 import { View, TextInput, Image, StyleSheet, Button } from 'react-native';
+import AddGoalDemo from '@/components/AddGoalDemo';
+import AddGoal from '@/components/AddGoal';
 
 function GoalInput(props: any) {
     const textInputRef = useRef<TextInput>(null);
@@ -10,8 +12,12 @@ function GoalInput(props: any) {
     };
 
     function addGoalHandler() {
+        if (enteredGoalText.length === 0) {
+            return;
+        }
         props.onAddGoal(enteredGoalText);
         textInputRef?.current?.clear();
+        setEnteredGoalText("");
     };
 
     return (
@@ -22,7 +28,8 @@ function GoalInput(props: any) {
           style={ styles.textInput }
           onChangeText={ goalInputHandler }
         ></TextInput>
-        <Button title="Add Goal" onPress={ addGoalHandler } color={'#4CAF50'}/>
+        <AddGoal onPress={ addGoalHandler }/>
+        {/* <Button title="Add Goal" onPress={ addGoalHandler } color={'#4CAF50'}/> */}
       </View>
     );
 };
