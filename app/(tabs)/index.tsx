@@ -5,18 +5,30 @@ import GoalInput from "@/components/GoalInput";
 import CustomGoalItemUsingScrollView from "@/components/CustomGoalItemUsingScrollView";
 import CustomGoalItemUsingFlatList from "@/components/CustomGoalItemUsingFlatList";
 import CustomModal from "@/components/CustomModal";
+import WarningModal from "@/components/WarningModal";
+import WelcomeModal from "@/components/WelcomeModal";
 
 export default function App() {
   const [courseGoals, setCourseGoals] = useState<{ text: string; key: string; }[]>([]);
+  const [modalVisible, setModalVisible] = useState(false);
 
   function addGoalHandler(enteredGoalText: string) {
-    setCourseGoals((currentCourseGoals) =>
-      [
-        ...currentCourseGoals,
-        {text: enteredGoalText, key: Math.random().toString()}
-      ]
-    );
+    console.log(courseGoals.length);
+    if (courseGoals.length >= 5) {
+      setModalVisible(true);
+    }
+
+    setCourseGoals((currentCourseGoals) => [
+      ...currentCourseGoals,
+      { text: enteredGoalText, key: Math.random().toString() }
+    ]);
   };
+
+  function deleteGoalHandler(goalKey: string) {
+    setCourseGoals((currentCourseGoals) => {
+      return currentCourseGoals.filter(goal => goal.key !== goalKey);
+    });
+  }
 
   function generateGoals(length = 500) {
     return Array.from({ length: length}, (_, index) => ({
@@ -38,12 +50,15 @@ export default function App() {
         return <CustomGoalItemUsingFlatList text={item.item.text}/>
         }}/>
         </View> */}
-
-      <CustomModal/>
         
       <FlatList style={ styles.goalsContainer } data={ courseGoals } renderItem={(item) => {
-        return <GoalItem text={item.item.text}/>
+        return <GoalItem id={item.item.key} text={item.item.text} onDeleteGoal={deleteGoalHandler}/>
       }}/>
+      <WelcomeModal/>
+      <WarningModal
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+      />
     </View>
   );
 }
