@@ -4,6 +4,7 @@ import GoalItem from "@/components/GoalItem";
 import GoalInput from "@/components/GoalInput";
 import CustomGoalItemUsingScrollView from "@/components/CustomGoalItemUsingScrollView";
 import CustomGoalItemUsingFlatList from "@/components/CustomGoalItemUsingFlatList";
+import CustomModal from "@/components/CustomModal";
 
 export default function App() {
   const [courseGoals, setCourseGoals] = useState<{ text: string; key: string; }[]>([]);
@@ -37,6 +38,8 @@ export default function App() {
         return <CustomGoalItemUsingFlatList text={item.item.text}/>
         }}/>
         </View> */}
+
+      <CustomModal/>
         
       <FlatList style={ styles.goalsContainer } data={ courseGoals } renderItem={(item) => {
         return <GoalItem text={item.item.text}/>
